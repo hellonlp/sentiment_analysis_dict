@@ -5,25 +5,22 @@ Created on Mon Jan  6 20:47:37 2020
 @author: cm
 """
 
-
 import re
 
 
-
 class ToolGeneral():
-
+    """
+    Tool function
+    """
     def is_odd(self,num):
         if num % 2 == 0:
             return 'even'
         else:
-            return 'odd'
-        
-    """
-    通用工具包
-    """
+            return 'odd'        
+
     def load_dict(self,file):  
         """
-        加载词典
+        Load dictionary
         """
         with  open(file,encoding='utf-8',errors='ignore') as fp:
             lines = fp.readlines()
@@ -35,7 +32,7 @@ class ToolGeneral():
 
     def sentence_split_regex(self,sentence):
         """
-        分句
+        Segmentation of sentence
         """
         if sentence is not None:
             sentence = re.sub(r"&ndash;+|&mdash;+", "-", sentence)
