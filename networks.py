@@ -18,23 +18,25 @@ tool = ToolGeneral()
 jieba.load_userdict(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dict','jieba_sentiment.txt'))
 
 
-
-
 class SentimentAnalysis():
     """
-    基于字典的情感分析算法
+    Sentiment Analysis with some dictionarys
     """      
     def sentiment_score_list(self,dataset):
         seg_sentence = tool.sentence_split_regex(dataset)
         count1,count2 = [],[]
-        for sentence in seg_sentence: # 循环遍历每一个评论
-            words = jieba.lcut(sentence, cut_all=False) # 把句子进行分词，以列表的形式返回 
-            i = 0 #记录扫描到的词的位置
-            a = 0 #记录情感词的位置
+        for sentence in seg_sentence: 
+            words = jieba.lcut(sentence, cut_all=False)
+            i = 0 
+            a = 0 
             for word in words:
-                #poscount 积极词的第一次分值;poscount2 积极反转后的分值;poscount3 积极词的最后分值（包括叹号的分值）            
+                """
+                poscount 积极词的第一次分值;
+                poscount2 积极反转后的分值;
+                poscount3 积极词的最后分值（包括叹号的分值）      
+                """
                 poscount,negcount,poscount2,negcount2,poscount3,negcount3 = 0,0,0,0,0,0  # 
-                if word in hp.posdict : # 判断词语是否是情感词
+                if word in hp.posdict : 
                     if word in ['好','真','实在'] and words[min(i+1,len(words)-1)] in hp.pos_neg_dict  and words[min(i+1,len(words)-1)] != word:
                         continue
                     else:
@@ -125,7 +127,7 @@ class SentimentAnalysis():
         return count2
       
         
-    def score(self,s):
+    def sentiment_score(self,s):
         senti_score_list = self.sentiment_score_list(s)
         if senti_score_list != []:
             negatives=[]
@@ -148,8 +150,8 @@ class SentimentAnalysis():
             pos_score,neg_score=0,0
         return pos_score,neg_score
        
-    def norm_score(self,sent):
-        score1,score0 = self.score(sent)
+    def normalization_score(self,sent):
+        score1,score0 = self.sentiment_score(sent)
         if score1 > 4 and score0 > 4:
             if score1 >= score0:
                 _score1 = 1
@@ -177,7 +179,7 @@ if __name__ =='__main__':
     text = '大美女'
     text = '帅哥'
     text = '我妈说明儿不让出去玩'
-    print(sa.norm_score(text))
+    print(sa.normalization_score(text))
 
 
 
