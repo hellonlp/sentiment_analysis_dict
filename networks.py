@@ -175,9 +175,6 @@ class SentimentAnalysis():
 
 if __name__ =='__main__':
     sa = SentimentAnalysis()
-    text = '对你不满意'
-    text = '大美女'
-    text = '帅哥'
     text = '我妈说明儿不让出去玩'
     print(sa.normalization_score(text))
 
