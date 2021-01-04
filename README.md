@@ -4,7 +4,7 @@
 
  
  # 使用方法 
- 1、预测
+ 1、预测  
  python preidict.py 
  
  # 知乎代码解读
